@@ -4,11 +4,17 @@
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (obj) {
   // your code goes here
-  var jsonResult = '';
-  for(var key in obj) {
-  	jsonResult += key.toString() + ', ';
+  if (typeof obj === 'number') {
+  	return obj.toString();
+  } else if (typeof obj === 'string') {
+  	return '"' + obj.toString() + '"';
+  } else if (typeof obj === 'boolean') {
+  	return obj.toString();
+  } else if (typeof obj === 'undefined') {
+  	return undefined;
+  } else if (Object.prototype.toString.call(obj) === '[object Null]') {
+  	return 'null';
   }
-  return jsonResult;
 };
 
 
@@ -23,7 +29,7 @@ var stringifyJSON = function (obj) {
 }*/
 
 // Run my function vs theirs
-var foo = {foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
+var foo = null; //{foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
 var jsonStringTheirs = JSON.stringify(foo);
 var jsonStringMine = stringifyJSON(foo);
 
