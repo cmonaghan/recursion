@@ -17,13 +17,24 @@ var stringifyJSON = function (obj) {
   	result += 'null';
   } else if (Object.prototype.toString.call(obj) === '[object Array]') {
     result += '[';
-    for (var i = 0; i < obj.length; i++) {
-      result += stringifyJSON(obj[i]) += ',';
+    for (var i = 0; i < obj.length - 1; i++) {
+      result += stringifyJSON(obj[i]);
+      result += ',';
     }
-    /*if (obj.length > 0) {      // This prevents comma insertion after last array item
+    if (obj.length > 0) {      // This prevents comma insertion after last array item
       result += stringifyJSON(obj[obj.length - 1]);
-    } */
+    }
     result += ']';
+  } else if (Object.prototype.toString.call(obj) === '[object Object]') {
+    result += '{';
+    for (var key in obj) {
+      result += stringifyJSON(key);
+      result += ':';
+      result += stringifyJSON(obj[key]);
+      result += ',';
+    }
+    result = result.substring(0,result.length - 1) // removes last comma
+    result += '}';
   }
   return result;
 };
@@ -40,7 +51,7 @@ var stringifyJSON = function (obj) {
 }*/
 
 // Run my function vs theirs
-var foo = [1,2,3]; //{foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
+var foo = {foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
 var jsonStringTheirs = JSON.stringify(foo);
 var jsonStringMine = stringifyJSON(foo);
 
