@@ -4,17 +4,28 @@
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (obj) {
   // your code goes here
+  var result = '';
   if (typeof obj === 'number') {
-  	return obj.toString();
+  	result += obj.toString();
   } else if (typeof obj === 'string') {
-  	return '"' + obj.toString() + '"';
+  	result += '"' + obj.toString() + '"';
   } else if (typeof obj === 'boolean') {
-  	return obj.toString();
+  	result += obj.toString();
   } else if (typeof obj === 'undefined') {
-  	return undefined;
+  	result += undefined;
   } else if (Object.prototype.toString.call(obj) === '[object Null]') {
-  	return 'null';
+  	result += 'null';
+  } else if (Object.prototype.toString.call(obj) === '[object Array]') {
+    result += '[';
+    for (var i = 0; i < obj.length; i++) {
+      result += stringifyJSON(obj[i]) += ',';
+    }
+    /*if (obj.length > 0) {      // This prevents comma insertion after last array item
+      result += stringifyJSON(obj[obj.length - 1]);
+    } */
+    result += ']';
   }
+  return result;
 };
 
 
@@ -29,7 +40,7 @@ var stringifyJSON = function (obj) {
 }*/
 
 // Run my function vs theirs
-var foo = null; //{foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
+var foo = [1,2,3]; //{foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
 var jsonStringTheirs = JSON.stringify(foo);
 var jsonStringMine = stringifyJSON(foo);
 
