@@ -11,8 +11,6 @@ var stringifyJSON = function (obj) {
   	result += '"' + obj.toString() + '"';
   } else if (typeof obj === 'boolean') {
   	result += obj.toString();
-  } else if (typeof obj === 'undefined') {
-  	result += undefined;
   } else if (Object.prototype.toString.call(obj) === '[object Null]') {
   	result += 'null';
   } else if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -62,7 +60,10 @@ var stringifyJSON = function (obj) {
 }*/
 
 // Run my function vs theirs
-var foo = {"a":[],"c": {}, "b": true};
+var foo = {
+  "functions": function(){},
+  "undefined": undefined
+};
 var jsonStringTheirs = JSON.stringify(foo);
 var jsonStringMine = stringifyJSON(foo);
 
