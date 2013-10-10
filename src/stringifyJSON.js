@@ -60,7 +60,7 @@ var stringifyJSON = function (obj) {
 }*/
 
 // Run my function vs theirs
-var foo = {
+/*var foo = {
   "functions": function(){},
   "undefined": undefined
 };
@@ -69,4 +69,4 @@ var jsonStringMine = stringifyJSON(foo);
 
 // Print responses
 document.write('This is what it should print:<br />' + jsonStringTheirs + '<p></p>');
-document.write('This is what mine prints:<br />' + jsonStringMine);
+document.write('This is what mine prints:<br />' + jsonStringMine);*/
