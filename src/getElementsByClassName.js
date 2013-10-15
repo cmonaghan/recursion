@@ -9,25 +9,15 @@ var getElementsByClassName = function (className) {
   var result = [];
   var findElements = function(currentNode) {
   	var children = currentNode.childNodes;
-  	if (children) {
-			for (var i in children) {
-				if (children[i].classList == className) { // this only works if element has 1 class, must use '.contains'
-					result.push(children[i]);
+  	if (children) { // if any children exist, returns true
+			for (var i in children) { // iterate through all children of the current node
+				if (_.contains(children[i].classList, className)) { // if className is found in the list of classes for that element
+					result.push(children[i]); // add the element to results
 				};
-				findElements(children[i]);
+				findElements(children[i]); // recursively call function for each child of that node, regardless of whether or not the targetClassName was found for that element
 			};
   	};
   };
-  findElements(document.body);
-
-  /*var element = document.body.childNodes;
-  if (document.body.childNodes) {
-  	element = document.body.childNodes;
-  	for (var i in element) {
-	  	if (element[i].classList == className) {
-			 result.push(element[i]);
-	  	}
-  	}
-  }*/
+  findElements(document.body); // call the function, starting with the highest level DOM element of document.body
   return result;
 };
