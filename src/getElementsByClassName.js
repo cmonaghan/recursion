@@ -7,7 +7,20 @@
 var getElementsByClassName = function (className) {
   // your code here
   var result = [];
-  var element = document.body.childNodes;
+  var findElements = function(currentNode) {
+  	var children = currentNode.childNodes;
+  	if (children) {
+			for (var i in children) {
+				if (children[i].classList == className) { // this only works if element has 1 class, must use '.contains'
+					result.push(children[i]);
+				};
+				findElements(children[i]);
+			};
+  	};
+  };
+  findElements(document.body);
+
+  /*var element = document.body.childNodes;
   if (document.body.childNodes) {
   	element = document.body.childNodes;
   	for (var i in element) {
@@ -15,6 +28,6 @@ var getElementsByClassName = function (className) {
 			 result.push(element[i]);
 	  	}
   	}
-  }
+  }*/
   return result;
 };
