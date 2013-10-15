@@ -5,7 +5,8 @@
 var stringifyJSON = function (obj) {
   // your code goes here
   var result = '';
-  if (typeof obj === 'number') {
+  // test for primitives first
+  if (typeof obj === 'number') { 
   	result += obj.toString();
   } else if (typeof obj === 'string') {
   	result += '"' + obj.toString() + '"';
@@ -15,11 +16,11 @@ var stringifyJSON = function (obj) {
   	result += 'null';
   } else if (Object.prototype.toString.call(obj) === '[object Array]') {
     result += '[';
-    for (var i = 0; i < obj.length - 1; i++) {
+    for (var i = 0; i < obj.length - 1; i++) { // subtracts 1 from length to avoid comma insertion on last item
       result += stringifyJSON(obj[i]);
       result += ',';
     }
-    if (obj.length > 0) {      // This prevents comma insertion after last array item
+    if (obj.length > 0) {      // Just for last item; This prevents comma insertion after last array item
       result += stringifyJSON(obj[obj.length - 1]);
     }
     result += ']';
@@ -48,18 +49,9 @@ var stringifyJSON = function (obj) {
   return result;
 };
 
-
 // ------------------------------------
 
-// An optional function input for JSON.stringify
-/*function censor(key, value) {
-  if (typeof(value) == "string") {
-    return undefined;
-  }
-  return value;
-}*/
-
-// Run my function vs theirs
+// Run my function vs theirs (for testing purposes)
 /*var foo = {
   "functions": function(){},
   "undefined": undefined
